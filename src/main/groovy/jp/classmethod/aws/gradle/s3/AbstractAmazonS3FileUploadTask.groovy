@@ -28,6 +28,8 @@ abstract class AbstractAmazonS3FileUploadTask extends DefaultTask {
 
 	File file
 	
+	CannedAccessControlList cannedAcl = CannedAccessControlList.PublicRead
+	
 	ObjectMetadata objectMetadata
 
 	String resourceUrl

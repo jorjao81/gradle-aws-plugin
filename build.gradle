@@ -18,7 +18,7 @@ defaultTasks 'clean', 'build'
 
 // ======== deployment options (dispatched on group name) ========
 group = 'jorjao81.gradle.aws'
-version = '0.15.7-SNAPSHOT'
+version = '0.15.8-SNAPSHOT'
 
 ext {
 	artifactId = 'gradle-aws-plugin'

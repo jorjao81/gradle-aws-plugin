@@ -58,6 +58,7 @@ class AmazonS3FileUploadTask extends AbstractAmazonS3FileUploadTask {
 			resourceUrl = s3.getResourceUrl(getBucketName(), getKey())
 			
 			s3.putObject(new PutObjectRequest(getBucketName(), getKey(), getFile())
+				.withCannedAcl(cannedAcl)
 				.withMetadata(getObjectMetadata()))
 			logger.info "upload completed: $resourceUrl"
 		} else {
