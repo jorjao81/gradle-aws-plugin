@@ -32,6 +32,8 @@ class SyncTask extends DefaultTask {
 	
 	File source
 	
+	CannedAccessControlList cannedAcl = CannedAccessControlList.PublicRead
+	
 	Closure<ObjectMetadata> metadataProvider;
 	
 	@TaskAction
@@ -51,6 +53,7 @@ class SyncTask extends DefaultTask {
 
 		upload(s3, prefix)
 		deleteAbsent(s3, prefix)
+		
 	}
 	
 	private String upload(AmazonS3 s3, String prefix) {
@@ -87,8 +90,10 @@ class SyncTask extends DefaultTask {
 				
 				if (doUpload) {
 					logger.info " => s3://$bucketName/$key"
+					
 					Closure<ObjectMetadata> metadataProvider = getMetadataProvider()
 					s3.putObject(new PutObjectRequest(getBucketName(), key, element.file)
+						.withCannedAcl(cannedAcl)
 						.withMetadata(metadataProvider == null ? null : metadataProvider.call(getBucketName(), key, element.file)))
 				} else {
 					logger.info " => s3://$bucketName/$key (SKIP)"

@@ -17,8 +17,8 @@ apply plugin: 'license'
 defaultTasks 'clean', 'build'
 
 // ======== deployment options (dispatched on group name) ========
-group = 'jp.classmethod.aws'
-version = '0.15-SNAPSHOT'
+group = 'jorjao81.gradle.aws'
+version = '0.15.7-SNAPSHOT'
 
 ext {
 	artifactId = 'gradle-aws-plugin'

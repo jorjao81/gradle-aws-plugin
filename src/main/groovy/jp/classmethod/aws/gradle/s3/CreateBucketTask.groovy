@@ -36,6 +36,10 @@ public class CreateBucketTask extends DefaultTask {
 	
 	boolean ifNotExists
 	
+	boolean website
+	
+	String indexDocument = "index.html"
+	
 	@TaskAction
 	def createBucket() {
 		// to enable conventionMappings feature
@@ -48,7 +52,16 @@ public class CreateBucketTask extends DefaultTask {
 		
 		if (isIfNotExists() == false || exists(s3) == false) {
 			s3.createBucket(bucketName)
+			
 			logger.info "bucket $bucketName created"
+		}
+		
+		if(isWebsite()) {
+			BucketWebsiteConfiguration web = new BucketWebsiteConfiguration()
+			web.setIndexDocumentSuffix(indexDocument);
+			s3.setBucketWebsiteConfiguration(bucketName, web)
+			
+			logger.info "bucket $bucketName configured as web with index documento ${indexDocument}"
 		}
 	}
 	
